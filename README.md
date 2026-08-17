@@ -1,56 +1,110 @@
-# Welcome to your Expo app 👋
+# Pathology Research & Review App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 📌 Project Overview
 
-## Get started
+The **Pathology Research & Review App** is a research-based application developed to support the work of **Dr. Sanjeev Patwardhan** and contribute to his **AI-based pathology research paper**.
 
-1. Install dependencies
+The application provides a secure digital workflow between **pathology technicians** and **pathologists**. Technicians can capture high-quality images and videos of pathology samples/cells and securely send them to pathologists for examination and review. Pathologists can then analyze the submitted media, add comments, provide signatures, and prepare reports.
 
-   ```bash
-   npm install
-   ```
+The project is designed as a research-support system with a focus on **secure data transfer, efficient collaboration, and digital pathology review**.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🎯 Problem Statement
 
-In the output, you'll find options to open the app in a
+In traditional pathology workflows, technicians capture images of pathology samples and share them with pathologists for examination. This process can involve manual file transfers and communication, making it difficult to maintain a structured record of observations and reports.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+This application aims to provide a centralized system where:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+* **Technicians** can capture photos and videos of pathology cells/samples.
+* The captured media can be securely submitted to a **pathologist**.
+* **Pathologists** can review and analyze the submitted images and videos.
+* Pathologists can add **comments, observations, and signatures**.
+* A structured **report file** can be maintained for each case.
+* Communication and data exchange are handled through a secure, encrypted system.
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 👥 User Roles
 
-```bash
-npm run reset-project
-```
+The application currently supports two types of users:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 1. Technician
 
-### Other setup steps
+The technician is responsible for capturing and submitting pathology-related media.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+**Capabilities:**
 
-## Learn more
+* Capture photographs of pathology cells/samples.
+* Record videos where required.
+* Upload and securely submit media to the assigned pathologist.
+* View the status of submitted cases.
+* Maintain case-related information.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 2. Pathologist
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The pathologist reviews and evaluates the submitted pathology media.
 
-## Join the community
+**Capabilities:**
 
-Join our community of developers creating universal apps.
+* View submitted photos and videos.
+* Review pathology samples.
+* Add written comments and observations.
+* Annotate/review case information.
+* Provide a digital signature.
+* Prepare and maintain reports for individual cases.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## ✨ Key Features
+
+* 📷 **Pathology Image Capture** – Technicians can capture photos of pathology cells and samples.
+* 🎥 **Video Capture** – Supports recording videos for cases where additional visual information is required.
+* 🔐 **Secure & Encrypted Communication** – Designed to protect pathology-related data during transmission and storage.
+* 👨‍🔬 **Pathologist Review** – Pathologists can access and review submitted media.
+* 💬 **Comments & Observations** – Pathologists can add written comments and observations to cases.
+* ✍️ **Digital Signature** – Pathologists can provide their signature as part of the review process.
+* 📄 **Case Reports** – Each case can have its own structured report containing the relevant information and review.
+* 👥 **Role-Based Access** – Separate workflows and permissions are provided for technicians and pathologists.
+* 📁 **Centralized Case Management** – Pathology media and reports can be organized around individual cases.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* **React Native** – Mobile application development and user interface.
+
+### Backend
+
+* **Node.js** – JavaScript runtime for the backend.
+* **Express.js** – REST API and backend application framework.
+
+### Database
+
+* **MongoDB** – Storage of user, case, pathology, report, and related application data.
+
+---
+
+## 🔬 Research Context
+
+This project is being developed as a **research-oriented pathology application** to support the research work of **Dr. Sanjeev Patwardhan**.
+
+The application is intended to provide the digital infrastructure required for collecting, transferring, reviewing, and maintaining pathology-related data as part of research in **AI-based pathology**.
+
+The system can serve as a foundation for future research-oriented features involving computational pathology, image analysis, and AI-assisted pathology workflows.
+
+---
+
+## 👨‍💻 Contributors
+
+* **Saakshi Karkera**
+* **Jiya Nair**
+* **Vaishnavi Parulekar**
+
+---
+
+## 📜 Project Purpose
+
+This application is developed primarily as a **research project** to support AI-based pathology research and provide a structured, secure, and efficient platform for communication between pathology technicians and pathologists.
