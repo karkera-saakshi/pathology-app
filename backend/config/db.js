@@ -1,26 +1,46 @@
-// config/db.js
 const { MongoClient } = require("mongodb");
 
 const url = process.env.MONGO_URI;
+
 const client = new MongoClient(url);
 
-let userCollec; // This will hold your collection reference
+let userCollec;
+let otpCollec;
 
 const connectDB = async () => {
   try {
     await client.connect();
+
     console.log("Connected successfully to MongoDB");
-    
-    const db = client.db(process.env.DB_NAME); // Use your DB name here
-    // Assign the collection globally to the variable
-    userCollec = db.collection("users"); 
+
+    const db = client.db(process.env.DB_NAME);
+
+    userCollec = db.collection("users");
+    otpCollec = db.collection("otps");
+
+    console.log("Users collection ready");
+    console.log("OTPs collection ready");
+
   } catch (error) {
-    console.error("Database connection failed:", error);
-    process.exit(1); // Stop the server if DB fails
+    console.error(
+      "Database connection failed:",
+      error
+    );
+
+    process.exit(1);
   }
+};
+
+const getUserCollection = () => {
+  return userCollec;
+};
+
+const getOtpCollection = () => {
+  return otpCollec;
 };
 
 module.exports = {
   connectDB,
-  getUserCollection: () => userCollec
+  getUserCollection,
+  getOtpCollection,
 };

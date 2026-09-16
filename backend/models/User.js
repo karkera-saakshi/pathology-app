@@ -1,39 +1,85 @@
 const bcrypt = require("bcryptjs");
-const generateToken = require("../utils/generateToken");
+
 const { getUserCollection } = require("../config/db");
-// Note: Ensure userCollec is accessible/imported here
-const registerUser = (userData) => {
-  const { email, password } = userData;
-  const col = getUserCollection();
-  return col.findOne({ email })
-    .then((userExists) => {
-      if (userExists) {
-        // Reject the promise with a 400 status if user exists
-        return { success: false, message: "User already exists" };
-      }
 
-      const hashedPassword = bcrypt.hashSync(password, 10);
-      return col.insertOne({ ...userData, password: hashedPassword });
-    });
+
+// Find user by email
+const findUserByEmail = async (email) => {
+  const col = getUserCollection();
+
+  return await col.findOne({ email });
 };
 
-const loginUser = (credentials) => {
-  const { email, password , role } = credentials;
+
+// Register user
+const registerUser = async (userData) => {
+  const { email, passwordHash, role } = userData;
+
   const col = getUserCollection();
-  return col.findOne({ email })
-    .then((user) => {
-      // 1. Check if user exists and password is correct
-      if (!user || !bcrypt.compareSync(password, user.password)) {
-        return { success: false, message: "Invalid email or password" };
-      }
 
-      // 2. Check if the role matches
-      if (user.role !== role) {
-        return { success: false, message: "Access denied: Incorrect role selected" };
-      }
+  const userExists = await col.findOne({ email });
 
-      return { success: true, user };
-    });
+  if (userExists) {
+    return {
+      success: false,
+      message: "User already exists",
+    };
+  }
+
+  // Password is already hashed
+  const result = await col.insertOne({
+    email,
+    password: passwordHash,
+    role,
+    createdAt: new Date(),
+  });
+
+  return result;
 };
 
-module.exports = { registerUser, loginUser };
+// Login user
+const loginUser = async (credentials) => {
+  const { email, password, role } = credentials;
+
+  const col = getUserCollection();
+
+  const user = await col.findOne({ email });
+
+  if (!user) {
+    return {
+      success: false,
+      message: "Invalid email or password",
+    };
+  }
+
+  const passwordMatch = await bcrypt.compare(
+    password,
+    user.password
+  );
+
+  if (!passwordMatch) {
+    return {
+      success: false,
+      message: "Invalid email or password",
+    };
+  }
+
+  if (user.role !== role) {
+    return {
+      success: false,
+      message: "Access denied: Incorrect role selected",
+    };
+  }
+
+  return {
+    success: true,
+    user,
+  };
+};
+
+
+module.exports = {
+  findUserByEmail,
+  registerUser,
+  loginUser,
+};

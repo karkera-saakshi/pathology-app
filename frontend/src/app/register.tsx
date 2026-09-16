@@ -16,17 +16,83 @@ import { router } from "expo-router";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [otp, setOtp] = useState("");
   const [role, setRole] = useState("");
+  
+  const handleRegister = async () => {
 
-  const handleRegister = () => {
-    console.log({
-      email,
-      password,
-      otp,
-      role,
-    });
-  };
+  if (!email || !password || !role) {
+
+    alert("Please fill all fields");
+
+    return;
+  }
+
+
+  try {
+
+    const response = await fetch(
+      "http://192.168.0.102:9000/api/auth/send-otp",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          password,
+          role,
+        }),
+      }
+    );
+
+
+    const data = await response.json();
+
+
+    console.log(
+      "Backend response:",
+      data
+    );
+
+
+    if (response.ok) {
+
+      alert("OTP sent to your email");
+
+
+      router.push({
+        pathname: "./verifyOtp",
+        params: {
+          email: email,
+        },
+      });
+
+
+    } else {
+
+      alert(
+        data.error ||
+        "Could not send OTP"
+      );
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Registration error:",
+      error
+    );
+
+    alert(
+      "Could not connect to backend"
+    );
+
+  }
+};
 
   return (
     <KeyboardAvoidingView
@@ -73,18 +139,7 @@ export default function Register() {
           onChangeText={setPassword}
         />
 
-        {/* OTP */}
-        <Text style={styles.label}>OTP</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Enter OTP"
-          keyboardType="number-pad"
-          maxLength={6}
-          value={otp}
-          onChangeText={setOtp}
-        />
-
+       
         {/* Role */}
         <Text style={styles.label}>Role</Text>
 
@@ -96,6 +151,7 @@ export default function Register() {
             <Picker.Item label="Select Role" value="" />
             <Picker.Item label="Technician" value="technician" />
             <Picker.Item label="Pathologist" value="pathologist" />
+            <Picker.Item label="Admin" value="admin" />
           </Picker>
         </View>
 
